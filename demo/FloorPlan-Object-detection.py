@@ -4,10 +4,6 @@ import cv2
 import numpy as np
 import base64
 
-def convert_image_to_base64(img_name):
-    with open(img_name, "rb") as img_file:
-        return base64.b64encode(img_file.read())
-
 img_filepath = './images/floorplan.jpg'
 img = cv2.imread(img_filepath)
 img_height, img_width, img_channels = img.shape
