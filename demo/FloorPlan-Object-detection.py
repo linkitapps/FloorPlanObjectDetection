@@ -2,8 +2,13 @@
 
 import cv2
 import numpy as np
-    
-img_filepath = './images/apartment.jpg'
+import base64
+
+def convert_image_to_base64(img_name):
+    with open(img_name, "rb") as img_file:
+        return base64.b64encode(img_file.read())
+
+img_filepath = './images/floorplan.jpg'
 img = cv2.imread(img_filepath)
 img_height, img_width, img_channels = img.shape
 img_color = cv2.imread(img_filepath)
@@ -35,6 +40,9 @@ for i in range(0, len(unique)):
         color = np.random.randint(0, 255, size=3)
     img_color[component] = color    #hightlight label/components on image 
 
-#show image
-cv2.imshow('img',img_color)   
-cv2.waitKey()
+string = base64.b64encode(cv2.imencode('.jpg', img_color)[1]).decode()
+print('data:image/jpeg;base64,' + string)
+
+# #show image
+# cv2.imshow('img',img_color)   
+# cv2.waitKey()
